@@ -1,12 +1,21 @@
-const express = require("express");
+const app = require("./src/app");
+const db = require("./src/config/db");
 
-const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use("/", (req, res) => {
-  res.json("home page");
-});
+async function startServer() {
+  try {
+    await db.query("SELECT 1");
 
-app.listen(PORT, () => {
-  console.log(`Server started- http://localhost:${PORT}`);
-});
+    console.log("DATABASE CONNECTED SUCCESSFULLY.");
+
+    app.listen(PORT, () => {
+      console.log(`SERVER RUNNING - http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("DATABASE CONNECTION FAILED:");
+    console.error(error.message);
+  }
+}
+
+startServer();
