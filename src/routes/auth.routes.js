@@ -1,6 +1,4 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
-const db = require("../config/db");
 
 const { register, login } = require("../controllers/auth.controller");
 
