@@ -107,8 +107,38 @@ const updateUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (req.user.id !== Number(id) && req.user.role !== "admin") {
+      return res.status(403).json({
+        msg: "you are not allowed to delete this user!",
+      });
+    }
+
+    const [users] = await db.query("SELECT id FROM users WHERE id = ?", [id]);
+    if (users.length === 0) {
+      return res.status(404).json({
+        msg: "user not found!",
+      });
+    }
+
+    await db.query("DELETE FROM users WHERE id = ?", [id]);
+    res.status(200).json({
+      msg: "user deleted successfully."
+    })
+  } catch (err) {
+    console.error("=X> FAILED DELETING A USER!");
+    res.status(500).json({
+      msg: "failed deleting a user!",
+    });
+  }
+};
+
 module.exports = {
   getAllUsers,
   getOneUser,
   updateUser,
+  deleteUser
 };
