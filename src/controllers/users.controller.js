@@ -15,7 +15,7 @@ const getAllUsers = async (req, res) => {
 
     res.status(200).json({ users });
   } catch (err) {
-    console.error("=X> FAILED FETCHING ALL USERS!");
+    console.error("=X> FAILED FETCHING ALL USERS! \n", err);
     res.status(500).json({
       msg: "failed fetching all users!",
     });
@@ -39,7 +39,7 @@ const getOneUser = async (req, res) => {
 
     res.status(200).json({ user: users[0] });
   } catch (err) {
-    console.error("=X> FAILED FETCHING ONE USER!");
+    console.error("=X> FAILED FETCHING ONE USER! \n", err);
     res.status(500).json({
       msg: "failed fetching one user!",
     });
@@ -100,7 +100,7 @@ const updateUser = async (req, res) => {
       msg: "user updated successfully.",
     });
   } catch (err) {
-    console.error("=X> FAILED UPDATING A USER!");
+    console.error("=X> FAILED UPDATING A USER! \n", err);
     res.status(500).json({
       msg: "failed updating a user!",
     });
@@ -129,7 +129,7 @@ const deleteUser = async (req, res) => {
       msg: "user deleted successfully."
     })
   } catch (err) {
-    console.error("=X> FAILED DELETING A USER!");
+    console.error("=X> FAILED DELETING A USER! \n", err);
     res.status(500).json({
       msg: "failed deleting a user!",
     });
